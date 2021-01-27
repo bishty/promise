@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label>Enter a Number</label>
+    <input type="text" id="btn" />
+    <p id="ans"></p>
+    <p id="aa"></p>
+    <button onclick="getdata()">calculate</button>
+
+    <script>
+      const getdata = () => {
+        return new Promise((resolve, reject) => {
+          let v = document.getElementById("btn").value;
+          document.getElementById("ans").innerHTML = v;
+          const randomnumber = Math.floor(Math.random() * 6 + 1);
+
+          if (isNaN(v)) {
+            reject(new Error("Wrong Input Type"));
+          }
+
+          if (v === randomnumber) {
+            resolve({
+              points: 2,
+              randomnumber: randomnumber,
+            });
+          } else if (v - randomnumber == -1 || v - randomnumber == 1) {
+            resolve({
+              point: 1,
+              randomnumber: randomnumber,
+            });
+          } else {
+            resolve({
+              points: 0,
+              randomnumber: randomnumber,
+            });
+          }
+
+           const continueGame = () => {
+            return new Promise((resolve) => {
+              if (alert.confirm("Do you want to continue?")) {
+                resolve(true);
+              } else {
+                resolve(false);
+              }
+            });
+          };
+        }).then(function (v) {
+          console.log(v.randomnumber);
+          document.getElementById("ans").innerHTML =
+            "points ::" + " " + v.points;
+          document.getElementById("aa").innerHTML =
+            "randomnumber::  " + "  " + v.randomnumber;
+        });
+      };
+    </script>
+  </body>
+</html>
